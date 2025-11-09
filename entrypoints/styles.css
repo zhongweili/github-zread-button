@@ -53,6 +53,7 @@ html[data-color-mode='dark'] .zread-button:hover {
   display: inline-flex;
   align-items: center;
   vertical-align: text-bottom;
+  margin-right: 6px;
 }
 
 .zread-button img {
