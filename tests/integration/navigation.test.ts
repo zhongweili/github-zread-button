@@ -93,7 +93,7 @@ describe('Navigation Handler Integration', () => {
 
   it('should prevent race conditions with async callbacks', async () => {
     let callbackCount = 0;
-    const slowCallback = vi.fn(async (url: string) => {
+    const slowCallback = vi.fn(async (_url: string) => {
       callbackCount++;
       await new Promise((resolve) => setTimeout(resolve, 1000));
     });

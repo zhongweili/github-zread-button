@@ -14,8 +14,8 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "types": ["chrome", "vitest/globals"]
+    "types": ["chrome", "vitest/globals", "node"]
   },
-  "include": ["entrypoints/**/*", "utils/**/*", "*.ts", "tests/**/*"],
+  "include": ["entrypoints/**/*", "utils/**/*", "*.ts", "tests/**/*", ".wxt/**/*"],
   "exclude": ["node_modules", ".output"]
 }

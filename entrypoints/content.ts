@@ -1,5 +1,4 @@
-import { defineContentScript } from 'wxt/sandbox';
-import { extractRepoInfo } from '../utils/url-transformer';
+import './styles.css';
 import { detectPage, waitForNavigation } from '../utils/github-detector';
 import {
   injectZreadButton,
@@ -12,25 +11,29 @@ import {
 } from '../utils/navigation-handler';
 import { logger } from '../utils/logger';
 
+// WXT content script entry point
 export default defineContentScript({
   matches: ['https://github.com/*/*'],
-  cssInjectionMode: 'ui',
-
-  async main() {
-    logger.log('[Zread] Content script loaded');
-
-    // Initial injection
-    await injectButtonIfNeeded();
-
-    // Setup navigation observer
-    setupNavigationObserver(handleNavigation);
-
-    // Cleanup on unload
-    window.addEventListener('beforeunload', () => {
-      cleanupObservers();
-    });
-  },
+  main,
 });
+
+/**
+ * Main entry point for the content script
+ */
+async function main() {
+  logger.log('[Zread] Content script loaded');
+
+  // Initial injection
+  await injectButtonIfNeeded();
+
+  // Setup navigation observer
+  setupNavigationObserver(handleNavigation);
+
+  // Cleanup on unload
+  window.addEventListener('beforeunload', () => {
+    cleanupObservers();
+  });
+}
 
 /**
  * Inject button if conditions are met
@@ -96,4 +99,12 @@ async function handleNavigation(url: string): Promise<void> {
 
   // Re-inject if needed
   await injectButtonIfNeeded();
+}
+
+// Types for WXT
+function defineContentScript(config: {
+  matches: string[];
+  main: () => void | Promise<void>;
+}) {
+  return config;
 }
