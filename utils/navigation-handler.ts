@@ -46,6 +46,9 @@ export function setupUrlChangeDetection(
           isProcessing = true;
           try {
             await callback(newUrl);
+          } catch (error) {
+            // Log error but don't throw to prevent unhandled rejection
+            logger.error('[Zread] Navigation callback error:', error);
           } finally {
             isProcessing = false;
           }
@@ -98,6 +101,9 @@ export function setupNavigationObserver(
           isProcessing = true;
           try {
             await callback(newUrl);
+          } catch (error) {
+            // Log error but don't throw to prevent unhandled rejection
+            logger.error('[Zread] Navigation callback error:', error);
           } finally {
             isProcessing = false;
           }
