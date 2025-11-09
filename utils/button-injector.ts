@@ -37,14 +37,22 @@ export function createButtonElement(owner: string, repo: string): HTMLElement {
   const safeOwner = sanitizeInput(owner);
   const safeRepo = sanitizeInput(repo);
 
+  // Create container (li element)
   const container = document.createElement('li');
   container.className = ZREAD_CONTAINER_CLASS;
 
+  // Create BtnGroup container (following GitHub's UI pattern)
+  const btnGroup = document.createElement('div');
+  btnGroup.setAttribute('data-view-component', 'true');
+  btnGroup.className = 'BtnGroup';
+
+  // Create button (a element)
   const link = document.createElement('a');
   link.href = generateZreadUrl(safeOwner, safeRepo);
   link.target = '_blank';
   link.rel = 'noopener noreferrer';
   link.className = `btn-sm btn BtnGroup-item ${ZREAD_BUTTON_CLASS}`;
+  link.setAttribute('data-view-component', 'true');
 
   // Create icon span
   const iconSpan = document.createElement('span');
@@ -61,10 +69,11 @@ export function createButtonElement(owner: string, repo: string): HTMLElement {
   // Create text node
   const textNode = document.createTextNode('Zread');
 
-  // Assemble
+  // Assemble: icon + text -> button -> btnGroup -> container
   link.appendChild(iconSpan);
   link.appendChild(textNode);
-  container.appendChild(link);
+  btnGroup.appendChild(link);
+  container.appendChild(btnGroup);
 
   return container;
 }
