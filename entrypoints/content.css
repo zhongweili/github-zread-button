@@ -1,0 +1,60 @@
+/* Zread Button Styles */
+.zread-container {
+  display: inline-flex;
+  align-items: center;
+}
+
+.zread-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 16px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+/* Light mode */
+.zread-button {
+  color: #24292f;
+  background-color: #f6f8fa;
+  border-color: rgba(27, 31, 36, 0.15);
+}
+
+.zread-button:hover {
+  background-color: #f3f4f6;
+  border-color: rgba(27, 31, 36, 0.15);
+}
+
+/* Dark mode */
+[data-color-mode='dark'] .zread-button,
+html[data-color-mode='dark'] .zread-button {
+  color: #c9d1d9;
+  background-color: #21262d;
+  border-color: rgba(240, 246, 252, 0.1);
+}
+
+[data-color-mode='dark'] .zread-button:hover,
+html[data-color-mode='dark'] .zread-button:hover {
+  background-color: #30363d;
+  border-color: rgba(240, 246, 252, 0.1);
+}
+
+/* Icon */
+.zread-button .octicon {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: text-bottom;
+}
+
+.zread-button img {
+  display: block;
+}
