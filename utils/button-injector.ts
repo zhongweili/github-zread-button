@@ -60,7 +60,7 @@ export function createButtonElement(owner: string, repo: string): HTMLElement {
 
   // Create icon image
   const iconImg = document.createElement('img');
-  iconImg.src = chrome.runtime.getURL('icon/zread-icon.svg');
+  iconImg.src = chrome.runtime.getURL('icon/icon-16.png');
   iconImg.width = 16;
   iconImg.height = 16;
   iconImg.alt = 'Zread';
