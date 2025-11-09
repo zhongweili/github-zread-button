@@ -14,7 +14,11 @@
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "format": "prettier --write \"**/*.{ts,json,md}\"",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "prepare-release": "./scripts/prepare-release.sh",
+    "zip": "npm run zip:chrome && npm run zip:firefox",
+    "zip:chrome": "cd .output/chrome-mv3 && zip -r ../../chrome-extension.zip . && cd ../..",
+    "zip:firefox": "cd .output/firefox-mv2 && zip -r ../../firefox-extension.zip . && cd ../.."
   },
   "keywords": [
     "github",
