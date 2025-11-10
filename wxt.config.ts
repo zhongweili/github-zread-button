@@ -19,6 +19,14 @@ export default defineConfig({
         matches: ['https://github.com/*'],
       },
     ],
+    browser_specific_settings: {
+      gecko: {
+        id: 'github-zread-button@zread.ai',
+        data_collection_permissions: {
+          required: ['none'],
+        },
+      },
+    },
   },
   srcDir: '.',
 });

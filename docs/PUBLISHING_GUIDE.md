@@ -315,17 +315,20 @@ cd ../..
 ### 前置要求
 
 1. **Microsoft Partner Center 账号**
-   - 访问: https://partner.microsoft.com/dashboard
-   - 需要 Microsoft 账号
-   - 免费注册
+   - 访问: https://partner.microsoft.com/dashboard/microsoftedge/overview
+   - 需要 Microsoft 账号 (免费注册)
+   - **无需**支付注册费用 (与 Chrome 的 $5 不同)
+   - 支持个人和企业开发者
 
 2. **准备构建产物**
 
-Edge 使用与 Chrome 相同的构建:
+Edge 使用 Chromium 内核,可以使用与 Chrome 相同的构建:
 
 ```bash
 # 使用 Chrome 构建
 pnpm run build
+
+# 打包为 ZIP
 cd .output/chrome-mv3
 zip -r ../../edge-extension.zip .
 cd ../..
@@ -335,24 +338,321 @@ cd ../..
 
 #### 第 1 步: 注册开发者账号
 
-1. 访问 [Partner Center](https://partner.microsoft.com/dashboard/microsoftedge/overview)
-2. 注册为扩展开发者 (免费)
+1. 访问 [Microsoft Partner Center](https://partner.microsoft.com/dashboard/microsoftedge/overview)
+2. 使用 Microsoft 账号登录 (如没有,先注册一个免费账号)
+3. 首次登录需要完成开发者注册流程:
+   - 选择账户类型 (个人或公司)
+   - 填写联系信息
+   - 同意开发者协议
+4. 完成验证 (可能需要邮箱验证)
 
-#### 第 2 步: 提交新扩展
+#### 第 2 步: 创建新扩展提交
 
-1. 点击 **"Create new extension"**
-2. 上传 `edge-extension.zip`
+1. 在 Partner Center 主页,点击 **"Extensions"** (扩展)
+2. 点击 **"Create new extension"** (创建新扩展)
+3. 选择提交类型:
+   - ✅ **"Extension"** (扩展程序)
+   - ❌ Theme (主题)
 
-#### 第 3 步: 填写详情
+#### 第 3 步: 上传扩展包
 
-使用与 Chrome Web Store 类似的信息:
-- 名称、描述、分类等
-- 上传图标和截图
+1. **上传 ZIP 文件:**
+   - 拖放或点击上传 `edge-extension.zip`
+   - 系统会自动验证包的有效性
+   - 等待上传和初步验证完成 (通常 1-2 分钟)
 
-#### 第 4 步: 提交审核
+2. **验证通过后会显示:**
+   - 扩展名称
+   - 版本号
+   - 权限列表
 
-- Edge 审核通常需要 **3-5 个工作日**
-- 审核标准与 Chrome 类似
+#### 第 4 步: 填写商店详情
+
+**Availability (可用性):**
+
+1. **市场和定价:**
+   - ✅ 选择 **"Make this product available in Edge Add-ons"** (在 Edge 加载项中提供)
+   - ✅ 选择 **"Free"** (免费)
+   - 选择发布市场 (建议选择 **"All markets"** - 所有市场)
+
+2. **可见性:**
+   - ✅ **Public** - 在商店中公开显示
+   - ⚠️ **Hidden** - 只能通过直接链接访问
+   - ⚠️ **Private** - 仅特定用户可见
+
+**Properties (属性):**
+
+1. **类别:**
+   - **主类别:** Productivity (生产力)
+   - **子类别:** Developer Tools (开发者工具)
+
+2. **扩展名称 (英文,必填):**
+   ```
+   GitHub Zread Button
+   ```
+
+3. **简短描述 (英文,必填,150 字符以内):**
+   ```
+   Quick access to Zread.ai documentation from any GitHub repository page. Lightweight and privacy-focused.
+   ```
+
+4. **详细描述 (英文,必填):**
+   ```markdown
+   GitHub Zread Button seamlessly integrates with GitHub's interface, adding a convenient "Zread" button to repository navigation bars.
+
+   ✨ KEY FEATURES:
+   • One-click access to comprehensive documentation on Zread.ai
+   • Perfect integration with GitHub's native UI
+   • Extremely lightweight (< 10KB) - no performance impact
+   • Privacy-first design - no tracking or data collection
+   • Full support for GitHub's light and dark themes
+   • Works seamlessly with GitHub's single-page navigation
+
+   🔒 PRIVACY & SECURITY:
+   This extension respects your privacy:
+   - No data collection or tracking
+   - No external API calls (except when you click to visit Zread.ai)
+   - All processing happens locally in your browser
+   - Minimal permissions required (only github.com access)
+   - Open source - verify the code yourself
+
+   📖 HOW TO USE:
+   1. Install the extension
+   2. Navigate to any GitHub repository
+   3. Look for the "Zread" button in the repository navigation bar
+   4. Click the button to instantly view comprehensive documentation on Zread.ai
+
+   🎯 PERFECT FOR:
+   - Developers seeking quick access to documentation
+   - Teams using Zread.ai for documentation
+   - Anyone who wants seamless GitHub integration
+
+   🆓 100% FREE & OPEN SOURCE
+   Source code available at: https://github.com/[your-username]/github-zread-button
+   Report issues or contribute: https://github.com/[your-username]/github-zread-button/issues
+
+   💡 ABOUT ZREAD.AI:
+   Zread.ai provides AI-powered documentation and code analysis. This extension makes it effortless to access Zread.ai's features directly from GitHub.
+   ```
+
+5. **语言支持 (可选,推荐添加中文):**
+
+   点击 **"Add language"** 添加中文 (简体):
+
+   - **扩展名称 (中文):** GitHub Zread 按钮
+   - **简短描述 (中文):**
+     ```
+     从任何 GitHub 仓库页面快速访问 Zread.ai 文档。轻量且注重隐私保护。
+     ```
+   - **详细描述 (中文):**
+     ```markdown
+     GitHub Zread Button 无缝集成到 GitHub 界面,在仓库导航栏添加便捷的 "Zread" 按钮。
+
+     ✨ 核心功能:
+     • 一键访问 Zread.ai 上的全面文档
+     • 完美融入 GitHub 原生界面
+     • 超轻量级 (< 10KB) - 零性能影响
+     • 隐私优先设计 - 无追踪、无数据收集
+     • 完整支持 GitHub 明暗主题
+     • 无缝兼容 GitHub 单页导航
+
+     🔒 隐私与安全:
+     本扩展尊重您的隐私:
+     - 不收集或追踪任何数据
+     - 无外部 API 调用 (除非点击访问 Zread.ai)
+     - 所有处理在浏览器本地完成
+     - 最小权限要求 (仅需访问 github.com)
+     - 开源代码 - 可自行验证
+
+     📖 使用方法:
+     1. 安装扩展
+     2. 访问任意 GitHub 仓库
+     3. 在仓库导航栏找到 "Zread" 按钮
+     4. 点击按钮即可在 Zread.ai 上查看全面文档
+
+     🎯 适用场景:
+     - 需要快速访问文档的开发者
+     - 使用 Zread.ai 管理文档的团队
+     - 任何希望无缝集成 GitHub 的用户
+
+     🆓 100% 免费且开源
+     源代码地址: https://github.com/[your-username]/github-zread-button
+     问题反馈或贡献: https://github.com/[your-username]/github-zread-button/issues
+
+     💡 关于 ZREAD.AI:
+     Zread.ai 提供 AI 驱动的文档和代码分析。本扩展让您能够直接从 GitHub 轻松访问 Zread.ai 的功能。
+     ```
+
+6. **搜索关键词 (可选,最多 7 个):**
+   ```
+   github, documentation, zread, developer tools, productivity, code, repository
+   ```
+
+**Packages (扩展包):**
+
+1. **Platform availability (平台可用性):**
+   - ✅ **Windows**
+   - ✅ **macOS**
+   - ✅ **Linux**
+
+**Store listings (商店列表):**
+
+1. **图标 (必填):**
+   - **尺寸要求:** 128x128, 300x300 (PNG 格式)
+   - 上传 `public/icon/icon-128.png`
+   - Edge 建议同时提供 300x300 的高分辨率版本
+
+2. **截图 (至少 1 张,最多 10 张):**
+   - **尺寸要求:** 1280x800 或 640x400 (PNG 或 JPEG)
+   - **推荐内容:**
+     1. 按钮在 GitHub 仓库页面的展示 (明亮模式)
+     2. 按钮在 GitHub 仓库页面的展示 (暗黑模式)
+     3. 点击按钮后的效果展示
+     4. 扩展的核心功能说明图
+   - 每张截图可以添加标题说明 (可选)
+
+3. **宣传图像 (可选,但强烈推荐):**
+   - **尺寸:** 1400x560 (PNG)
+   - 用于商店特色展示
+   - 设计建议:
+     - 突出扩展名称
+     - 展示核心功能
+     - 使用品牌配色
+
+4. **YouTube 视频链接 (可选):**
+   - 可以添加演示视频链接
+   - 有助于提高转化率
+
+**Notes for certification (审核说明):**
+
+这是给审核人员看的重要信息:
+
+```
+This extension adds a "Zread" button to GitHub repository pages for quick access to Zread.ai documentation.
+
+Testing instructions:
+1. Install the extension
+2. Visit any GitHub repository (e.g., https://github.com/microsoft/vscode)
+3. Look for the "Zread" button in the repository navigation bar
+4. Click the button to verify it opens Zread.ai with the correct repository URL
+
+Privacy compliance:
+- No data collection or tracking
+- No background processes
+- Only injects UI elements on github.com
+- Single purpose: Add navigation button to GitHub
+
+Permissions justification:
+- host_permissions ["https://github.com/*"]: Required to inject the Zread button into GitHub pages
+
+Source code: https://github.com/[your-username]/github-zread-button
+```
+
+#### 第 5 步: 隐私和合规性
+
+**Privacy policy (隐私政策):**
+
+1. Edge 要求提供隐私政策链接
+2. 可以使用 GitHub 仓库中的隐私政策:
+   ```
+   https://github.com/[your-username]/github-zread-button/blob/main/PRIVACY_POLICY.md
+   ```
+
+3. 隐私政策应包含:
+   - 数据收集声明 (本扩展不收集数据)
+   - 权限使用说明
+   - 第三方服务说明 (如果有)
+   - 联系方式
+
+**Data usage declaration (数据使用声明):**
+
+1. **Does this extension collect or transmit user data?**
+   - ❌ **No** - 不收集或传输用户数据
+
+2. **Justification for permissions:**
+   ```
+   host_permissions ["https://github.com/*"]:
+   This permission is required to inject the Zread button into GitHub repository pages.
+   The extension only modifies the visual appearance of GitHub pages and does not
+   access, collect, or transmit any user data.
+   ```
+
+#### 第 6 步: 提交审核
+
+1. **检查所有信息:**
+   - ✅ 扩展包已上传
+   - ✅ 商店详情已填写完整
+   - ✅ 图标和截图已上传
+   - ✅ 隐私政策已提供
+   - ✅ 审核说明已填写
+
+2. **提交审核:**
+   - 点击 **"Submit for review"** (提交审核)
+   - 确认提交信息
+   - 等待审核
+
+3. **审核流程:**
+   - **自动验证:** 立即完成 (检查包结构、manifest 等)
+   - **人工审核:** 3-5 个工作日 (可能更快)
+   - **测试审核:** Microsoft 会测试扩展功能
+   - **合规审核:** 检查是否符合政策
+
+4. **审核状态查看:**
+   - 在 Partner Center 的 **"Overview"** 页面查看状态
+   - 可能的状态:
+     - 🟡 **In review** - 审核中
+     - 🟢 **In the store** - 已发布
+     - 🔴 **Action required** - 需要修改
+
+#### 第 7 步: 审核通过后
+
+1. **发布确认:**
+   - 收到邮件通知
+   - 扩展在 Edge Add-ons 商店上线
+   - 获得商店链接: `https://microsoftedge.microsoft.com/addons/detail/[extension-id]`
+
+2. **更新商店信息:**
+   - 可以随时更新描述、截图等
+   - 更新不需要重新审核 (除非涉及扩展包本身)
+
+3. **监控数据:**
+   - Partner Center 提供详细的统计数据:
+     - 安装量
+     - 评分和评论
+     - 卸载率
+     - 用户反馈
+
+### Edge 特有的优势
+
+1. **快速审核:** 通常比 Chrome 和 Firefox 更快 (3-5 天)
+2. **免费发布:** 无需支付注册费用
+3. **详细分析:** Partner Center 提供丰富的数据分析
+4. **企业支持:** Edge 在企业环境中广泛使用
+5. **自动同步:** 可以设置从 Chrome Web Store 自动同步更新
+
+### 从 Chrome Web Store 同步 (可选)
+
+Edge 支持从 Chrome Web Store 自动同步扩展:
+
+1. **在 Partner Center 选择:**
+   - **"Sync from Chrome Web Store"** (从 Chrome Web Store 同步)
+
+2. **提供 Chrome 商店链接:**
+   ```
+   https://chrome.google.com/webstore/detail/[extension-id]
+   ```
+
+3. **好处:**
+   - 自动同步更新
+   - 减少维护工作
+   - 确保版本一致
+
+4. **注意事项:**
+   - 仍需通过 Edge 的审核
+   - 某些 Edge 特有的设置需要单独配置
+   - 可以随时停止同步,独立管理
+
+---
 
 ---
 
