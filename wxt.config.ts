@@ -4,7 +4,7 @@ export default defineConfig({
   manifest: {
     name: 'GitHub Zread Button',
     description: 'Adds a Zread.ai button to GitHub repository pages',
-    version: '1.0.0',
+    version: '1.0.1',
     permissions: [],
     host_permissions: ['https://github.com/*'],
     icons: {
