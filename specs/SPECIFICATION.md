@@ -242,9 +242,9 @@ export function extractRepoInfo(url: string): { owner: string; repo: string } | 
 export function generateZreadUrl(owner: string, repo: string): string;
 
 /**
- * Check if current page is a repository page
+ * Check if current page is a repository page (main page only, not subpages)
  * @param pathname - window.location.pathname
- * @returns Boolean indicating if it's a repo page
+ * @returns Boolean indicating if it's a repo main page
  */
 export function isRepositoryPage(pathname: string): boolean;
 ```
@@ -413,11 +413,13 @@ npm run format         # Prettier
 - [ ] Safari (if supported)
 
 **GitHub Page Types to Test:**
-- `/owner/repo` - Main repository page
-- `/owner/repo/issues` - Issues page
-- `/owner/repo/pull/123` - Pull request page
-- `/owner/repo/tree/main` - Code browser
-- `/owner/repo/blob/main/file.js` - File viewer
+- `/owner/repo` - Main repository page (should show button)
+- `/owner/repo?tab=readme` - Main repository page with query params (should show button)
+- `/owner/repo#readme` - Main repository page with fragment (should show button)
+- `/owner/repo/issues` - Issues page (should NOT show button)
+- `/owner/repo/pull/123` - Pull request page (should NOT show button)
+- `/owner/repo/tree/main` - Code browser (should NOT show button)
+- `/owner/repo/blob/main/file.js` - File viewer (should NOT show button)
 - `/owner` - Organization/user profile (should NOT show button)
 - `/` - GitHub homepage (should NOT show button)
 
@@ -990,9 +992,15 @@ export function generateZreadUrl(owner: string, repo: string): string {
 }
 
 export function isRepositoryPage(pathname: string): boolean {
-  // Must have at least /owner/repo format
-  const parts = pathname.split('/').filter(Boolean);
-  return parts.length >= 2;
+  // Remove query params and fragments
+  const cleanPath = pathname.split(/[?#]/)[0];
+
+  // Remove trailing slashes
+  const normalizedPath = cleanPath.replace(/\/+$/, '');
+
+  // Must have exactly /owner/repo format (no additional segments)
+  const segments = normalizedPath.split('/').filter((s) => s.length > 0);
+  return segments.length === 2;
 }
 ```
 

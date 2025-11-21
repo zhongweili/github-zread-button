@@ -354,20 +354,43 @@ All deliverables from the specification are complete:
 - Followed WXT documentation structure
 - All configurations are correct and follow best practices
 
+## Recent Updates (2025-11-21)
+
+### Bug Fix: Repository Page Detection
+
+**Issue**: The `isRepositoryPage()` function was incorrectly identifying repository subpages (like `/owner/repo/issues`) as main repository pages, causing the Zread button to appear on pages where it shouldn't.
+
+**Resolution**:
+- Updated `isRepositoryPage()` in `utils/url-transformer.ts:93-103` to only match main repository pages (`/owner/repo`)
+- Now correctly handles:
+  - Query parameters (e.g., `/owner/repo?tab=readme`)
+  - URL fragments (e.g., `/owner/repo#readme`)
+  - Trailing slashes (e.g., `/owner/repo/`)
+  - Excludes subpages (e.g., `/owner/repo/issues`, `/owner/repo/tree/main`)
+
+**Tests Updated**:
+- Modified `tests/unit/url-transformer.test.ts:72-96` to verify correct behavior
+- All 76 tests passing
+
+**Documentation Updated**:
+- Updated `specs/specification.md` with correct implementation and test cases
+- Updated function signature comments to clarify "main page only"
+
 ## Conclusion
 
 The GitHub Zread Button extension is **fully implemented** according to the specification. All 6 phases are complete with:
 
 - ✅ Complete TypeScript implementation with strict typing
-- ✅ Comprehensive test suite (48 tests)
+- ✅ Comprehensive test suite (76 tests, all passing)
 - ✅ Full documentation (README, LICENSE, comments)
 - ✅ Proper error handling and edge case coverage
 - ✅ Theme-aware styling (light/dark mode)
 - ✅ SPA navigation support with debouncing
 - ✅ Privacy-first design (no external APIs)
 - ✅ Modular architecture with separated concerns
+- ✅ Correct repository page detection (main pages only)
 
-**Ready for code review and testing once npm dependencies are installed.**
+**Ready for code review and production use.**
 
 ---
 

@@ -88,10 +88,16 @@ export function generateZreadUrl(owner: string, repo: string): string {
 /**
  * Check if pathname represents a repository page
  * @param pathname - URL pathname
- * @returns True if repository page
+ * @returns True if repository page (main page only, not subpages)
  */
 export function isRepositoryPage(pathname: string): boolean {
-  // Must have at least /owner/repo
-  const segments = pathname.split('/').filter((s) => s.length > 0);
-  return segments.length >= 2;
+  // Remove query params and fragments
+  const cleanPath = pathname.split(/[?#]/)[0];
+
+  // Remove trailing slashes
+  const normalizedPath = cleanPath.replace(/\/+$/, '');
+
+  // Must have exactly /owner/repo format (no additional segments)
+  const segments = normalizedPath.split('/').filter((s) => s.length > 0);
+  return segments.length === 2;
 }

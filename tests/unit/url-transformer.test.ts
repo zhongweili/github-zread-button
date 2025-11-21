@@ -70,19 +70,27 @@ describe('generateZreadUrl', () => {
 });
 
 describe('isRepositoryPage', () => {
-  it('should return true for repository pages', () => {
+  it('should return true for repository main pages', () => {
     expect(isRepositoryPage('/facebook/react')).toBe(true);
-    expect(isRepositoryPage('/owner/repo/issues')).toBe(true);
-    expect(isRepositoryPage('/a/b/c/d/e')).toBe(true);
+    expect(isRepositoryPage('/owner/repo')).toBe(true);
+    expect(isRepositoryPage('/facebook/react/')).toBe(true);
+  });
+
+  it('should return true for main pages with query params or fragments', () => {
+    expect(isRepositoryPage('/facebook/react?tab=readme')).toBe(true);
+    expect(isRepositoryPage('/facebook/react#readme')).toBe(true);
+  });
+
+  it('should return false for repository subpages', () => {
+    expect(isRepositoryPage('/owner/repo/issues')).toBe(false);
+    expect(isRepositoryPage('/owner/repo/pull/123')).toBe(false);
+    expect(isRepositoryPage('/owner/repo/tree/main')).toBe(false);
+    expect(isRepositoryPage('/a/b/c/d/e')).toBe(false);
   });
 
   it('should return false for non-repository pages', () => {
     expect(isRepositoryPage('/')).toBe(false);
     expect(isRepositoryPage('/facebook')).toBe(false);
     expect(isRepositoryPage('/explore')).toBe(false);
-  });
-
-  it('should handle trailing slashes', () => {
-    expect(isRepositoryPage('/facebook/react/')).toBe(true);
   });
 });
